@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Redirecting...</title>
+  </head>
+  <body>
+    <p>Redirecting to our new site in 5 seconds... or click</p>
+    <a id="redirect">here.</a>
+    <noscript>
+      <p>
+        JavaScript is disabled. Please click
+        <a id="noscript-redirect">here</a> to be redirected.
+      </p>
+    </noscript>
+  </body>
+  <script lang="js">
+    const DELAY = 1000 * 5;
+    const redirectTo = process.env.REDIRECT || 'https://www.google.com';
+    const redirectElement = document.getElementById('redirect').href = redirectTo;
+    const noscriptRedirectElement = document.getElementById('noscript-redirect').href = redirectTo;
+
+    setTimeout(function(){
+        window.location.href = redirectTo;
+    }, DELAY);
+  </script>
+  <style>
+    html {
+      font-size: 24px;
+      font-family: sans-serif;
+      background-color: #0a0a12;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    a {
+      margin-left: 10px;
+      color: #83008f;
+    }
+    p {
+      color: #fff;
+    }
+  </style>
+</html>
