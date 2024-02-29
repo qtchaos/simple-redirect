@@ -3,25 +3,44 @@
   <head>
     <title>Redirecting...</title>
   </head>
-  <body>
-    <p>Redirecting to our new site in 5 seconds... or click</p>
-    <a id="redirect">here.</a>
+  <body onload="redirectTo()">
+    <p>
+      Redirecting to our new site in <span id="countdown">-</span> seconds... or
+      click
+    </p>
+    <a id="redirect" tabindex="0">here.</a>
     <noscript>
-      <p>
-        JavaScript is disabled. Please click
-        <a id="noscript-redirect">here</a> to be redirected.
-      </p>
+      <p>JavaScript is disabled.</p>
     </noscript>
   </body>
   <script lang="js">
-    const DELAY = 1000 * 5;
-    const redirectTo = process.env.REDIRECT || 'https://www.google.com';
-    const redirectElement = document.getElementById('redirect').href = redirectTo;
-    const noscriptRedirectElement = document.getElementById('noscript-redirect').href = redirectTo;
+    function redirectTo() {
+        const DELAY = 1000 * 5;
+        const redirectTo = typeof process !== 'undefined' ? process.env.REDIRECT : 'https://www.google.com';
+        const redirectElement = document.getElementById('redirect').href = redirectTo;
 
-    setTimeout(function(){
-        window.location.href = redirectTo;
-    }, DELAY);
+        try {
+            const noscriptRedirectElement = document.getElementById('noscript-redirect').href = redirectTo
+        } catch (_) {
+            countdown(5);
+            setTimeout(function(){
+                window.location.replace(redirectTo);
+            }, DELAY);
+            console.info("JavaScript is enabled.")
+        }
+    }
+
+    function countdown(seconds) {
+        const countdownElement = document.getElementById('countdown');
+        countdownElement.textContent = seconds;
+        const interval = setInterval(function() {
+            let countdown = parseInt(countdownElement.textContent);
+            countdownElement.textContent = --countdown;
+            if (countdown === 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    }
   </script>
   <style>
     html {
