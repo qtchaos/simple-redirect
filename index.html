@@ -1,47 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="dark">
   <head>
     <title>Redirecting...</title>
   </head>
-  <body onload="redirectTo()">
+  <body>
     <p>
       Redirecting to our new site in <span id="countdown">-</span> seconds... or
       click
     </p>
-    <a id="redirect" tabindex="0">here.</a>
+    <a id="redirect" tabindex="0" href="">here.</a>
     <noscript>
       <p>JavaScript is disabled.</p>
     </noscript>
+    <script type="module" src="/main.js"></script>
   </body>
-  <script lang="js">
-    function redirectTo() {
-        const DELAY = 1000 * 5;
-        const redirectTo = typeof process !== 'undefined' ? process.env.REDIRECT : 'https://www.google.com';
-        const redirectElement = document.getElementById('redirect').href = redirectTo;
-
-        try {
-            const noscriptRedirectElement = document.getElementById('noscript-redirect').href = redirectTo
-        } catch (_) {
-            countdown(5);
-            setTimeout(function(){
-                window.location.replace(redirectTo);
-            }, DELAY);
-            console.info("JavaScript is enabled.")
-        }
-    }
-
-    function countdown(seconds) {
-        const countdownElement = document.getElementById('countdown');
-        countdownElement.textContent = seconds;
-        const interval = setInterval(function() {
-            let countdown = parseInt(countdownElement.textContent);
-            countdownElement.textContent = --countdown;
-            if (countdown === 0) {
-                clearInterval(interval);
-            }
-        }, 1000);
-    }
-  </script>
   <style>
     html {
       font-size: 24px;

@@ -1,0 +1,16 @@
+{
+  "name": "simple-redirect",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --base=./",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "vite": "^5.1.4"
+  }
+}
